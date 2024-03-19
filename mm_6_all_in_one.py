@@ -63,4 +63,29 @@ ap_group_post_data = {'profile-name': ap_group_name,
 post_ap_group(ap_group_post_data)
 
 # 写入配置
-write_memory()
+# write_memory()
+
+# 实际命令如下
+"""
+user-role qytang-role-api
+   access-list session allowall
+   access-list session logon-control
+!
+aaa profile "qytang-aaa-profile-api"
+   initial-role "qytang-role-api"
+   authentication-dot1x "default-psk"
+!
+wlan ssid-profile "qytang-ssid-prof-psk-api"
+   essid "qytang-ssid-psk-api"
+   wpa-passphrase 7d322a80e61963c6bbbfe56851ed7f8bd9c4ee3678b2fb42
+   opmode wpa2-psk-aes
+!
+wlan virtual-ap "qytang-virtual-ap-api"
+   aaa-profile "qytang-aaa-profile-api"
+   vlan 100
+   ssid-profile "qytang-ssid-prof-psk-api"
+!
+ap-group "ap-group-beijing"
+   virtual-ap "qytang-virtual-ap-api"
+
+"""
